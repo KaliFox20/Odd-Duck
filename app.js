@@ -55,64 +55,63 @@ function randomIndexGenerator() {
   return Math.floor(Math.random() * allProducts.length);
 }
 //      make functunion to Generate random pictures non-repeating
-// function renderImgs() {
-//   let imgOneIndex = randomIndexGenerator();
-//   let imgTwoIndex = randomIndexGenerator();
-//   let imgThreeIndex = randomIndexGenerator();
+function renderImgs() {
+  let imgOneIndex = randomIndexGenerator();
+  let imgTwoIndex = randomIndexGenerator();
+  let imgThreeIndex = randomIndexGenerator();
 
 
 
-//   // make sure they are unique each round
-//   while (imgOneIndex === imgTwoIndex === imgThreeIndex) {
-//     imgTwoIndex = randomIndexGenerator();
-//     imgThreeIndex = randomIndexGenerator();
-//   }
-//   imgOne.src = allProducts[imgOneIndex].photo;
-//   imgOne.alt = allProducts[imgOneIndex].name;
-//   imgOne.name = allProducts[imgOneIndex].name;
-//   allProducts[imgOneIndex].views++;
-//   imgTwo.src = allProducts[imgTwoIndex].photo;
-//   imgTwo.alt = allProducts[imgTwoIndex].name;
-//   imgTwo.name = allProducts[imgTwoIndex].name;
-//   allProducts[imgTwoIndex].views++;
-//   imgTwo.src = allProducts[imgThreeIndex].photo;
-//   imgTwo.alt = allProducts[imgThreeIndex].name;
-//   imgTwo.name = allProducts[imgThreeIndex].name;
-//   allProducts[imgThreeIndex].views++;
-// }
+  // make sure they are unique each round
+  while (imgOneIndex === imgTwoIndex || imgTwoIndex === imgThreeIndex || imgThreeIndex === imgOneIndex) {
+    imgTwoIndex = randomIndexGenerator();
+    imgThreeIndex = randomIndexGenerator();
+  }
+  imgOne.src = allProducts[imgOneIndex].photo;
+  imgOne.alt = allProducts[imgOneIndex].name;
+  allProducts[imgOneIndex].views++;
+  imgTwo.src = allProducts[imgTwoIndex].photo;
+  imgTwo.alt = allProducts[imgTwoIndex].name;
+  allProducts[imgTwoIndex].views++;
+  imgThree.src = allProducts[imgThreeIndex].photo;
+  imgThree.alt = allProducts[imgThreeIndex].name;
+  allProducts[imgThreeIndex].views++;
+}
+
+renderImgs();
 //Event Handlers
 
-// function handleClick(event) {
-//   // - click - on the imgs - rerender new images(increase the views on the goats that are rendered) - count the vote of the goat that was clicked/ lower our total number of votes
-//   let imgClicked = event.target.name;
-//   console.dir(imgClicked);
+function handleClick(event) {
+  // - click - on the imgs - rerender new images(increase the views on the goats that are rendered) - count the vote of the goat that was clicked/ lower our total number of votes
+  let imgClicked = event.target.name;
+  console.dir(imgClicked);
 
-//   for (let i = 0; i < allProducts.length; i++) {
-//     if (imgClicked === allProducts[i].name) {
-//       allProducts[i].votes++;
-//     }
-//   }
-//   allVotes--;
+  for (let i = 0; i < allProducts.length; i++) {
+    if (imgClicked === allProducts[i].name) {
+      allProducts[i].votes++;
+    }
+  }
+  allVotes--;
 
-//   renderImgs();
+  renderImgs();
 
-//   if (allVotes === 0) {
-//     imgContainer.removeEventListener('click', handleClick);
-//   }
-// }
+  if (allVotes === 0) {
+    imgContainer.removeEventListener('click', handleClick);
+  }
+}
 
-// function handleShowResults() {
-//   if (allVotes === 0) {
-//     for (let i = 0; i < allProducts.length; i++) {
-//       let liElem = document.createElement('li');
-//       liElem.textContent = `${allProducts[i].name}: views: ${allProducts[i].views}, votes: ${allProducts[i].votes}`;
-//       resultsList.appendChild(liElem);
-//     }
-//     resultBtn.removeEventListener('click', handleShowResults);
-//   }
-// }
+function handleShowResults() {
+  if (allVotes === 0) {
+    for (let i = 0; i < allProducts.length; i++) {
+      let liElem = document.createElement('li');
+      liElem.textContent = `${allProducts[i].name}: views: ${allProducts[i].views}, votes: ${allProducts[i].votes}`;
+      resultList.appendChild(liElem);
+    }
+    resultButton.removeEventListener('click', handleShowResults);
+  }
+}
 
 // // ********* EVENT LISTENERS *******************
-// imgContainer.addEventListener('click', handleClick);
-// resultBtn.addEventListener('click', handleShowResults);
+imgContainer.addEventListener('click', handleClick);
+resultButton.addEventListener('click', handleShowResults);
 
