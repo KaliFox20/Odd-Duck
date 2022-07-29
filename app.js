@@ -16,6 +16,9 @@ let imgThree = document.getElementById('img-three');
 let resultButton = document.getElementById('show-results-btn');
 let resultList = document.getElementById('results-list');
 
+// Local Storage stuff
+let retreivedP = localStorage.getItem('myProducts');
+let parsedProducts = JSON.parse(retreivedP);
 
 // Constructor Functions
 
@@ -194,6 +197,8 @@ function renderChart() {
 
 function handleShowResults() {
   if (allVotes === 0) {
+    let stringifiedProducts = JSON.stringify(allProducts);
+    localStorage.setItem('myProducts', stringifiedProducts);
     for (let i = 0; i < allProducts.length; i++) {
       renderChart();
       // let liElem = document.createElement('li');
@@ -201,6 +206,12 @@ function handleShowResults() {
       // resultList.appendChild(liElem);
     }
     resultButton.removeEventListener('click', handleShowResults);
+  }
+}
+
+function Retriveinfo(){
+  for(let i = 0; i < parsedProducts.length; i++){
+    console.log(retreivedP);
   }
 }
 
